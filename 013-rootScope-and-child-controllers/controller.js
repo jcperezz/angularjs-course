@@ -1,18 +1,16 @@
-
-//Creamos el modulo
-//Agregamos el modulo ngResource para consumir REST
+//Ejercicio con rootScope y child nodes
 var app = angular.module("MyFirstApp", []);
 
-app.controller("FirstController", ["$scope", "$http", function(m, h){
+// #run Se ejecuta al instanciar por primera vez el modulo
+app.run(["$rootScope", function(scope) {
+	scope.nombre = "Prueba";
+}]);
 
-	m.posts = [];
+app.controller("FirstController", ["$scope", "$rootScope", function(scope, rootScope){
+	scope.nombre = "Otro nombre";
 
-	h.get("https://jsonplaceholder.typicode.com/posts")
-		.success(function(data){
-			console.log(data);
-			m.posts = data;
+}]);
 
-		}).error(function(err){
+app.controller("ChildController", ["$scope", "$rootScope", function(scope){
 
-		});
 }]);

@@ -6,11 +6,16 @@
 	<script type="text/javascript" src="./controller.js"></script>
 </head>
 <body ng-controller="FirstController">
+	{{nombre}}
 
-<ul>
-		<li ng-repeat="post in posts">{{post.title}} - {{post.body}}</li>
+	<p>Padre: <strong>{{$parent.nombre}}</strong></p>
 
-</ul>
+	<div ng-controller="ChildController">
+		<p>Hijo: <strong>{{nombre}}</strong></p>
+
+		Actualiza el padre y el hijo
+		<input type="text" ng-model="$parent.nombre" />
+	</div>
 
 </body>
 </html>
