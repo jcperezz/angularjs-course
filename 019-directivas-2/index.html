@@ -1,0 +1,31 @@
+<html ng-app="CustomDirective">
+<head>
+	<link rel="stylesheet" href="./autocomplete-jquery-ui.structure.css">
+	<meta charset="utf-8">
+	<title>Hola mundo AngularJS</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+	<script type="text/javascript" src="./jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./autocomplete-jquery-ui.js"></script>
+	<script type="text/javascript" src="./controller.js"></script>
+
+	<style>
+		.circular{
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+		}
+	</style>
+
+</head>
+<body ng-controller="AppCtrl">
+	<input type="text" my-autocomplete="repos" placeholder="Busque algo" />
+	<!-- ng-cloak sirve para  -->
+	<ul class="no-list" ng-cloak>
+		<li ng-repeat="post in posts">
+				<div class="circular" back-img="{{post.owner.avatar_url}}"></div>
+				{{post.name}}
+		</li>
+	</ul>
+</body>
+</html>

@@ -4,11 +4,22 @@
 	<title>Hola mundo AngularJS</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 	<script type="text/javascript" src="./controller.js"></script>
+
+	<style>
+		.circular{
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+		}
+	</style>
+
 </head>
 <body ng-controller="AppCtrl">
-	<ul class="no-list">
+	<!-- ng-cloak sirve para  -->
+	<ul class="no-list" ng-cloak>
 		<li ng-repeat="repo in repos">
-				<img src="{{repo.owner_avatar}}">
+				<div class="circular" back-img="{{repo.owner.avatar_url}}"></div>
 				{{repo.name}}
 		</li>
 	</ul>
