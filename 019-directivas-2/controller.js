@@ -5,23 +5,29 @@ var app = angular.module("CustomDirective", []);
 
 app.directive("myAutocomplete", function(){
 
+	function link(scope, element, attrs, ngModelCtrl){
+
+		console.log(attrs.myAutocomplete);
+
+		scope.$watch(attrs.myAutocomplete, function(newValue,oldValue) {
+			var list = scope.$eval(attrs.myAutocomplete);
+
+			console.log(list);
+
+			$(element).autocomplete({
+				source: list,
+				select: function(ev, ui){
+					ev.preventDefault();
+					scope.optionSelected(ui.item.value);
+				},
+				focus: function(ev, ui){
+					ev.preventDefault();
+					$(this).val(ui.item.label);
+				}
+			});
+    });
 
 
-	function link(scope, element, attrs){
-
-console.log(scope);
-
-		$(element).autocomplete({
-			source: scope["repos"],
-			select: function(ev, ui){
-				ev.preventDefault();
-				scope.optionSelected(ui.item.value);
-			},
-			focus: function(ev, ui){
-				ev.preventDefault();
-				$(this).val(ui.item.label);
-			}
-		});
 	};
 
 	return {
@@ -45,7 +51,7 @@ app.directive("backImg", function(){
 
 app.controller("AppCtrl", ["$scope", "$http", function(scope, http){
 
-	http.get("https://api.github.com/users/jcperezz/repos")
+	http.get("https://api.github.com/users/twitter/repos")
 	.success(function(data){
     scope.repos = [];
 		scope.posts = data;
@@ -59,7 +65,7 @@ app.controller("AppCtrl", ["$scope", "$http", function(scope, http){
 		console.log(err);
 	});
 
-	scope.optionSelected = function(dat){
+	scope.optionSelected = function(data){
 		scope.$apply(function(){
 			scope.main_repo = data;
 		});
