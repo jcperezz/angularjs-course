@@ -1,0 +1,45 @@
+angular.module("CustomDirective")
+.directive("myAutocomplete",function(){
+  function link(scope,element,attrs,ngModelCtrl){
+
+  scope.$watch(attrs.myAutocomplete, function(newValue,oldValue) {
+
+    var list = scope.$eval(attrs.myAutocomplete);
+
+    $(element).autocomplete({
+      source: list,
+      select: function(ev,ui){
+          ev.preventDefault();
+          if(ui.item){
+            scope.optionSelected(ui.item.value);
+          }
+      },
+      focos: function(ev,ui){
+        ev.preventDefault();
+        $(this).val(ui.item.label);
+      }
+    });
+  });
+
+
+  };
+
+
+  return {
+    link: link
+  };
+})
+.directive('backImg',function(){
+  return function($scope,element,attrs){
+    attrs.backImg //En caso de que no sea js lo que esta adentro
+    //Para ello se usa observe
+    attrs.$observe('backImg',function(value){
+      element.css({
+        'background-image': "url('"+value+"')",
+        'background-size': 'cover',
+        'background-position': 'center'
+
+      });
+    });
+  }
+});
